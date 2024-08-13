@@ -8,16 +8,18 @@ class Customer:
         self.get_name = name
         self.get_email = email
         self.get_phone = phone
+        self._order_cache: list[Order] = []
 
     def place_an_order(self, cart: ShoppingCart):
         if not cart.get_goods:
             raise ValueError('Корзина пуста. Пожалуйста, добавьте товары для оформления заказа')
 
         order = Order(self, cart.get_goods, cart.get_price())
+        self._order_cache.append(order)
         return order
 
     def get_history_of_orders(self):
-        pass
+        return self._order_cache
 
     @property
     def get_name(self):
@@ -28,7 +30,7 @@ class Customer:
         if all(word.split() for word in name.split() if word.isalpha()) and len(name.split()) >= 1:
             self._name = name
         else:
-            raise ValueError('Неправильный формат имени')
+            raise ValueError('Wrong name format')
 
     @property
     def get_email(self):
@@ -36,10 +38,10 @@ class Customer:
 
     @get_email.setter
     def get_email(self, s: str):
-        if '@gmail.com' in s or '@mail.ru' in s or '@bk.com' in s and s.index('@') > 0:
+        if '@gmail.com' in s or '@mail.ru' in s or '@bk.com' in s or '@example.com' in s and s.index('@') > 0:
             self._email = s
         else:
-            raise ValueError('Неправильный формат электронной почты')
+            raise ValueError('Wrong email format')
 
     @property
     def get_phone(self):

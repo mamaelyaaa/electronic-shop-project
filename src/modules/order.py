@@ -10,7 +10,7 @@ class Order:
         if new_status in ['In progress', 'Processed', 'Delivered', 'Canceled']:
             self._status = new_status
         else:
-            raise ValueError('Такого статуса нет')
+            raise ValueError('No such status exists')
 
     @property
     def get_status(self):
@@ -21,8 +21,12 @@ class Order:
         if status in ['In progress', 'Processed', 'Delivered', 'Canceled']:
             self._status = status
         else:
-            raise ValueError('Такого статуса нет')
+            raise ValueError('No such status exists')
 
     @property
     def get_goods(self):
         return self._goods
+
+    @property
+    def get_price(self):
+        return self._price

@@ -23,10 +23,10 @@ class Product:
 
     @get_category.setter
     def get_category(self, model: str):
-        if model.capitalize() in ['Laptop', 'Phone', 'Headphones']:
+        if model.capitalize() in ['Laptop', 'Phone', 'Headphones', 'Wireless earphones']:
             self._category = model
         else:
-            raise ValueError('Такой категории товаров нет')
+            raise ValueError('No such category exists')
 
     @property
     def check_in_storage(self):
@@ -37,4 +37,10 @@ class Product:
         if check > 0:
             self._check_in_storage = check
         else:
-            raise ValueError('Товара нет в наличии')
+            raise ValueError('Product is out of stock')
+
+
+class Phone(Product):
+
+    def __init__(self, model: str, price: float, check_in_storage: int):
+        super().__init__(model, price, 'Phone', check_in_storage)
