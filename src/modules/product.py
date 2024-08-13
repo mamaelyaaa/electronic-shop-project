@@ -38,4 +38,3 @@ class Product:
             self._check_in_storage = check
         else:
             raise ValueError('Товара нет в наличии')
-

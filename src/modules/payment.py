@@ -1,7 +1,3 @@
-from src.modules.customer import Customer
-from src.modules.order import Order
-
-
 class Payment:
 
     def __init__(self, price: float, status):

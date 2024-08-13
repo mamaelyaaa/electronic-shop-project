@@ -1,17 +1,20 @@
 from src.modules.cart import ShoppingCart
+from src.modules.order import Order
 
 
 class Customer:
 
-    def __init__(self, name: str, surname: str, email: str, phone: str, cart: ShoppingCart = None):
-        self._name = name
-        self._surname = surname
+    def __init__(self, name: str, email: str, phone: str):
+        self.get_name = name
         self.get_email = email
         self.get_phone = phone
-        self.cart = cart
 
     def place_an_order(self, cart: ShoppingCart):
-        pass
+        if not cart.get_goods:
+            raise ValueError('Корзина пуста. Пожалуйста, добавьте товары для оформления заказа')
+
+        order = Order(self, cart.get_goods, cart.get_price())
+        return order
 
     def get_history_of_orders(self):
         pass
@@ -20,9 +23,12 @@ class Customer:
     def get_name(self):
         return self._name
 
-    @property
-    def get_surname(self):
-        return self._surname
+    @get_name.setter
+    def get_name(self, name: str):
+        if all(word.split() for word in name.split() if word.isalpha()) and len(name.split()) >= 1:
+            self._name = name
+        else:
+            raise ValueError('Неправильный формат имени')
 
     @property
     def get_email(self):
@@ -47,7 +53,3 @@ class Customer:
             self._phone = phone
         else:
             raise ValueError('Неправильный формат номера телефона')
-
-    @property
-    def get_cart(self):
-        return self.cart

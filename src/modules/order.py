@@ -1,16 +1,16 @@
-from src.modules.customer import Customer
-
-
 class Order:
 
-    def __init__(self, order_id: int, customer: Customer, status):
-        self._order_id = order_id
+    def __init__(self, customer, goods, price):
         self._customer = customer
-        self.get_status = status
-        self._goods = customer.cart.get_goods
+        self._goods = goods
+        self._price = price
+        self.get_status = 'In progress'
 
     def change_status(self, new_status):
-        self._status = new_status
+        if new_status in ['In progress', 'Processed', 'Delivered', 'Canceled']:
+            self._status = new_status
+        else:
+            raise ValueError('Такого статуса нет')
 
     @property
     def get_status(self):
@@ -24,12 +24,5 @@ class Order:
             raise ValueError('Такого статуса нет')
 
     @property
-    def get_order_id(self):
-        return self._order_id
-
-    @property
     def get_goods(self):
-        return self._goods
-
-    def get_order_price(self):
         return self._goods

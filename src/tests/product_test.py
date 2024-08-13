@@ -7,7 +7,6 @@ def test_product_creation():
     assert product.get_price == 1499.99
     assert product.get_category == 'Laptop'
     assert product.check_in_storage == 2
-    print(product.get_info())
 
 
 test_product_creation()

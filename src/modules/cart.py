@@ -3,24 +3,17 @@ from src.modules.product import Product
 
 class ShoppingCart:
 
-    def __init__(self, goods: list[Product]):
-        self._goods = goods
+    def __init__(self):
+        self._goods: list[Product] = []
 
-    def add_to_cart(self, product: Product):
-        self._goods.append(product)
+    def add_to_cart(self, *products) -> None:
+        self._goods += [*products]
 
-    def del_from_cart(self, product: Product):
-        for i in range(len(self._goods)):
-            if self._goods[i] == product:
-                del self._goods[i]
+    def del_from_cart(self, product: Product) -> None:
+        self._goods.pop(self._goods.index(product))
 
     def get_price(self) -> float:
-        cart_price = 0
-
-        for product in self._goods:
-            cart_price += product.get_price
-
-        return cart_price
+        return sum(i.get_price for i in self._goods)
 
     @property
     def get_goods(self):
